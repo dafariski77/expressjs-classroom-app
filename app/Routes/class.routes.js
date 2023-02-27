@@ -6,7 +6,7 @@ const {
   index,
   update,
   destroy,
-} = require("../Controllers/class.controllers");
+} = require("../Controllers/class.controller");
 
 router.get("/class/:id", find);
 router.post("/class", create);

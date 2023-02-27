@@ -1,5 +1,5 @@
 const { NotFoundError, BadRequestError } = require("../Errors");
-const ClassModel = require("../Models/class.models");
+const ClassModel = require("../Models/class.model");
 
 const getAllClass = async () => {
   const result = await ClassModel.find();

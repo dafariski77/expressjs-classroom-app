@@ -5,7 +5,7 @@ const {
   getAllClass,
   updateClass,
   deleteClass,
-} = require("../Services/class");
+} = require("../Services/class.service");
 
 const index = async (req, res, next) => {
   try {
