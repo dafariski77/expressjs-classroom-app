@@ -1,5 +1,9 @@
 const { StatusCodes } = require("http-status-codes");
-const { getOneUser } = require("../Services/user.service");
+const {
+  getOneUser,
+  updateProfile,
+  updatePassword,
+} = require("../Services/user.service");
 
 const find = async (req, res, next) => {
   try {
@@ -13,4 +17,28 @@ const find = async (req, res, next) => {
   }
 };
 
-module.exports = { find };
+const edit = async (req, res, next) => {
+  try {
+    const result = await updateProfile(req);
+
+    res.status(StatusCodes.OK).json({
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const editPassword = async (req, res, next) => {
+  try {
+    const result = await updatePassword(req);
+
+    res.status(StatusCodes.OK).json({
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { find, edit, editPassword };

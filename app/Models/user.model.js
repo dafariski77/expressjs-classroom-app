@@ -24,6 +24,15 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    status: {
+      type: String,
+      enum: ["active", "not active"],
+      default: "not active",
+    },
+    otp: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
