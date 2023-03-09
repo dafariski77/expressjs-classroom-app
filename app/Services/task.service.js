@@ -1,8 +1,8 @@
 const { BadRequestError, NotFoundError } = require("../Errors");
-const TasksModel = require("../Models/task.model");
+const TaskModel = require("../Models/task.model");
 
 const getAllTask = async () => {
-  const result = await TasksModel.find().populate({
+  const result = await TaskModel.find().populate({
     path: "className",
     select: "_id name",
   });
@@ -13,7 +13,7 @@ const getAllTask = async () => {
 const createTask = async (req) => {
   const { title, description, file, deadline, className } = req.body;
 
-  const check = await TasksModel.findOne({
+  const check = await TaskModel.findOne({
     title,
   });
 
@@ -21,7 +21,7 @@ const createTask = async (req) => {
     throw new BadRequestError("Title already exist!");
   }
 
-  const result = await TasksModel.create({
+  const result = await TaskModel.create({
     title,
     description,
     deadline,
@@ -34,7 +34,7 @@ const createTask = async (req) => {
 const getOneTask = async (req) => {
   const { id } = req.params;
 
-  const result = await TasksModel.findOne({
+  const result = await TaskModel.findOne({
     _id: id,
   }).populate({ path: "className", select: "_id name" });
 
@@ -49,7 +49,7 @@ const updateTask = async (req) => {
   const { id } = req.params;
   const { title, description, file, deadline, className } = req.body;
 
-  const check = await TasksModel.findOne({
+  const check = await TaskModel.findOne({
     title,
     _id: { $ne: id },
   });
@@ -58,7 +58,7 @@ const updateTask = async (req) => {
     throw new BadRequestError("Title already exist!");
   }
 
-  const result = await TasksModel.findOneAndUpdate(
+  const result = await TaskModel.findOneAndUpdate(
     {
       _id: id,
     },
@@ -76,7 +76,7 @@ const updateTask = async (req) => {
 const deleteTask = async (req) => {
   const { id } = req.params;
 
-  const result = await TasksModel.findOne({ _id: id });
+  const result = await TaskModel.findOne({ _id: id });
 
   if (!result) {
     throw new NotFoundError("Task not found!");

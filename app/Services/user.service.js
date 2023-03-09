@@ -4,12 +4,12 @@ const {
   UnauthorizedError,
   BadRequestError,
 } = require("../Errors");
-const UsersModel = require("../Models/user.model");
+const UserModel = require("../Models/user.model");
 
 const getOneUser = async (req) => {
   const { id } = req.params;
 
-  const result = await UsersModel.findOne({
+  const result = await UserModel.findOne({
     _id: id,
   });
 
@@ -24,7 +24,7 @@ const updateProfile = async (req) => {
   const { id } = req.params;
   const { name, email } = req.body;
 
-  const result = await UsersModel.findOneAndUpdate(
+  const result = await UserModel.findOneAndUpdate(
     {
       _id: id,
     },
@@ -49,7 +49,7 @@ const updatePassword = async (req) => {
   const { id } = req.params;
   const { oldPassword, newPassword, confirmPassword } = req.body;
 
-  const user = await UsersModel.findOne({ _id: id });
+  const user = await UserModel.findOne({ _id: id });
   if (!user) {
     throw new NotFoundError("User not found!");
   }
@@ -64,7 +64,7 @@ const updatePassword = async (req) => {
   }
 
   const hashPassword = await bcrypt.hash(newPassword, 12);
-  const result = await UsersModel.findOneAndUpdate(
+  const result = await UserModel.findOneAndUpdate(
     {
       _id: id,
     },
