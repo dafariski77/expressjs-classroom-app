@@ -21,18 +21,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Welcome To My Classroom API",
+  });
+});
+
 app.use(classRouter);
 app.use(authRouter);
 app.use(userRouter);
 app.use(refreshTokenRouter);
 app.use(taskRouter);
 app.use(fileRouter);
-
-app.get("/", (req, res) => {
-  res.json({
-    title: "Welcome To my Classroom API",
-  });
-});
 
 app.use(erroHandlerMiddleware);
 app.use(notFoundMiddleware);
